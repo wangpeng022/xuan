@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>场景2扩大</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: #88CCCC;
+        }
+
+        canvas {
+            display: block;
+            /* margin: 200px auto; */
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="action1"></canvas>
+
+    <script>
+        var h = document.documentElement.clientHeight;
+        var w = document.documentElement.clientWidth;
+        var maxLong = h;
+        if (w > h) maxLong = w;
+        console.log(h, w, maxLong);
+
+        var bgColor = ['#88CCCC'];
+        var colorArr = ['#FF5500', '#7AB900', '#B848FF', '#FF2525'];
+        document.addEventListener('click', function () {
+            init();
+        })
+
+        function init() {
+            let canvas = document.querySelector("#action1");
+            canvas.height = h;
+            canvas.width = w;
+            let ctx = canvas.getContext("2d");
+            ctx.fillStyle = 'lightcoral'; // 设置颜色
+            draw(ctx);
+        }
+
+
+        function draw(ctx) {
+
+            var num = Math.round(Math.random() * 3 + 3)
+            var pramas = {
+                x: w / 2,
+                y: h / 2,
+                num: num,
+                r: 30,
+                strokeStyle: colorArr[Math.round(Math.random() * 3)],
+                width: 6 * Math.round(Math.random() * 3)
+            };
+            console.log(pramas.r);
+            // ctx.translate(w / 2, h / 2);
+            requestAnimationFrame(function step() {
+                pramas.r += 20;
+                ctx.clearRect(-w, -h, 2 * w, 2 * h);
+                drawPolygon(ctx, pramas);
+                // ctx.rotate(Math.PI / 180 * 1);
+
+                if (pramas.r >= maxLong) {
+                    return ctx.clearRect(0, 0, w, h);
+                }
+                requestAnimationFrame(step);
+            });
+        }
+
+        function drawPolygon(ctx, conf) {
+            var x = conf && conf.x || 0; //中心点x坐标
+            var y = conf && conf.y || 0; //中心点y坐标
+            var num = conf && conf.num || 3; //图形边的个数
+            var r = conf && conf.r || 100; //图形的半径
+            var width = conf && conf.width || 5;
+            var strokeStyle = conf && conf.strokeStyle;
+            var fillStyle = conf && conf.fillStyle;
+            //开始路径
+            ctx.beginPath();
+            var startX = x + r * Math.cos(2 * Math.PI * 0 / num);
+            var startY = y + r * Math.sin(2 * Math.PI * 0 / num);
+            ctx.moveTo(startX, startY);
+            for (var i = 1; i <= num; i++) {
+                var newX = x + r * Math.cos(2 * Math.PI * i / num);
+                var newY = y + r * Math.sin(2 * Math.PI * i / num);
+                ctx.lineTo(newX, newY);
+            }
+            ctx.closePath();
+            //路径闭合
+            if (strokeStyle) {
+                ctx.strokeStyle = strokeStyle;
+                ctx.lineWidth = width;
+                ctx.lineJoin = 'round';
+                ctx.stroke();
+            }
+            if (fillStyle) {
+                ctx.fillStyle = fillStyle;
+                ctx.fill();
+            }
+        }
+    </script>
+
+
+
+</body>
+
+</html>

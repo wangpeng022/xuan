@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>场景1旋转</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: rgba(0, 0, 0, 0.1)
+        }
+
+        canvas {
+            display: block;
+            margin: 200px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="action1" style="width: 100%;height: 100%"></canvas>
+
+    <script>
+        init();
+
+        function init() {
+            let canvas = document.querySelector("#action1");
+            let ctx = canvas.getContext("2d");
+            ctx.fillStyle = 'lightcoral'; // 设置颜色
+            draw(ctx);
+        }
+
+        function draw(ctx){
+            ctx.translate(100,100);
+            requestAnimationFrame(function step(){
+            ctx.clearRect(-11,-11,22,22);
+            ctx.rotate(15*Math.PI/180);
+            ctx.fillRect(-10,-10,20,20);
+            requestAnimationFrame(step);
+        });
+
+        // ctx.translate(100,100);
+        // var timer=setInterval(function(){
+        //     ctx.clearRect(-11,-11,22,22);
+        //     ctx.rotate(15*Math.PI/180);
+        //     ctx.fillRect(-10,-10,20,20);
+        // },50)
+        }
+
+        function turn(ctx){
+        // ctx.save();
+        // ctx.rotate(-Math.PI / 2 + angle);  //旋转坐标轴。 x轴就是针的角度
+        ctx.rotate(15*Math.PI/180);
+        ctx.beginPath();
+        ctx.moveTo(-4, 0);
+        // ctx.lineTo(len, 0);  // 沿着x轴绘制针
+        // ctx.lineWidth = width;
+        // ctx.strokeStyle = color;
+        ctx.lineCap = "round";
+        ctx.stroke();
+        ctx.closePath();
+        ctx.restore();
+    }
+    </script>
+
+
+
+</body>
+
+</html>
