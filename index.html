@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        body{
+        body {
             margin: 0;
             padding: 0;
+            background: lightblue;
         }
     </style>
 </head>
+
 <body>
+
     <canvas id="action1"></canvas>
 
     <script>
@@ -19,23 +23,23 @@
         var winW = document.documentElement.clientWidth;
 
 
-        var itemH,itemW;
+        var itemH, itemW;
         var clickXY = [];
         var n = 0;
-        var nRow = winW>winH?4:8;
-        var nClo = winW>winH?8:4;
-        itemH = winH/nRow;
-        itemW = winW/nClo;
+        var nRow = winW > winH ? 4 : 8;
+        var nClo = winW > winH ? 8 : 4;
+        itemH = winH / nRow;
+        itemW = winW / nClo;
         for (var i = 0; i < nClo; i++) {
             for (var j = 0; j < nRow; j++) {
                 var item = {
-                x: itemW*i,
-                y: itemH*j,
-                w: itemW,
-                h: itemH,
-                i: j+n,
-            }
-            clickXY.push(item)
+                    x: itemW * i,
+                    y: itemH * j,
+                    w: itemW,
+                    h: itemH,
+                    i: j + n,
+                }
+                clickXY.push(item)
             }
             n += j;
         }
@@ -48,19 +52,22 @@
         canvas.height = winH;
         canvas.width = winW;
         var ctx = canvas.getContext('2d')
-        canvas.addEventListener('click', function(e) {
-             var x = event.pageX - canvas.getBoundingClientRect().left
-             var y = event.pageY - canvas.getBoundingClientRect().top
-            for(var i of clickXY) {
+        canvas.addEventListener('touch', function(e) {
+            var x = event.pageX - canvas.getBoundingClientRect().left
+            var y = event.pageY - canvas.getBoundingClientRect().top
+            for (var i of clickXY) {
                 if (x > (i.x) && x < (i.x + i.w) && y > (i.y) && y < (i.y + i.h)) {
-                  console.log("我是第" + i.i + "个图形")
-                    ctx.fillRect(i.x,i.y,i.w,i.h);
-                  //这里可以根据i 来确定你需要执行的方法
-                  break
+                    console.log("我是第" + i.i + "个图形")
+                    ctx.fillRect(i.x, i.y, i.w, i.h);
+                    setTimeout(function(){
+                        ctx.clearRect(i.x-1, i.y-1, i.w+2, i.h+2);
+                    },500)
+                    //这里可以根据i 来确定你需要执行的方法
+                    break
                 }
             }
         }, false)
-
     </script>
 </body>
+
 </html>
