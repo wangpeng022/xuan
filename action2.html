@@ -26,7 +26,7 @@
         var w = document.documentElement.clientWidth;
         var maxLong = h;
         if (w > h) maxLong = w;
-        console.log(h, w, maxLong);
+        // console.log(h, w, maxLong);
 
         var bgColor = ['#88CCCC'];
         var colorArr = ['#FF5500', '#7AB900', '#B848FF', '#FF2525'];
@@ -39,7 +39,7 @@
             canvas.height = h;
             canvas.width = w;
             let ctx = canvas.getContext("2d");
-            ctx.fillStyle = 'lightcoral'; // 设置颜色
+            // ctx.fillStyle = 'lightcoral'; // 设置颜色
             draw(ctx);
         }
 
@@ -55,7 +55,7 @@
                 strokeStyle: colorArr[Math.round(Math.random() * 3)],
                 width: 6 * Math.round(Math.random() * 3)
             };
-            console.log(pramas.r);
+            // console.log(pramas.r);
             // ctx.translate(w / 2, h / 2);
             requestAnimationFrame(function step() {
                 pramas.r += 20;
