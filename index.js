@@ -3,8 +3,8 @@
             canvas:'',
             ctx: ''
         };
-        window.onload=wResize();
-        // document.getElementsByTagName('body').onresize=wResize();
+        window.onload=wResize;
+        window.onresize=wResize;
         function wResize(){
             model.canvas = document.getElementById('action1');
             model.ctx = model.canvas.getContext('2d')
